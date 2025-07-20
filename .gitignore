@@ -416,3 +416,15 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+# Docker
+docker-compose.override.yml
+*.dockerfile
+*.tar
+*.img
+.docker/
+
+# Dotnet publish
+out/
+publish/
