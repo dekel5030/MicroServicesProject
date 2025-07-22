@@ -16,6 +16,7 @@ namespace CommandsService.EventProcessing
             _scopedFactory = scopedFactory;
             _mapper = mapper;
         }
+
         public void ProcessEvent(string message)
         {
             var eventType = DetermineEvent(message);
@@ -23,6 +24,7 @@ namespace CommandsService.EventProcessing
             switch (eventType)
             {
                 case EventType.PlatformPublished:
+                    AddPlatform(message);
                     break;
                 default:
                     break;
@@ -44,6 +46,7 @@ namespace CommandsService.EventProcessing
                     {
                         repo.CreatePlatform(platform);
                         repo.SaveChanges();
+                        Console.WriteLine("--> Platform added succesfuly");
                     }
                     else
                     {
@@ -60,7 +63,7 @@ namespace CommandsService.EventProcessing
 
         private EventType DetermineEvent(string notificationMessage)
         {
-            Console.Write("--> Determining Event");
+            Console.WriteLine("--> Determining Event");
 
             var eventType = JsonSerializer.Deserialize<GenericEventDto>(notificationMessage);
 
